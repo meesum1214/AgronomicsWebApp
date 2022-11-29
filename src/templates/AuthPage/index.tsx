@@ -72,7 +72,7 @@ export default () => {
 
         CheckPhone(parseInt(phoneNumber.split('+92')[1])).then((res) => {
           login(res)
-          console.log('res>>>>>', res)
+          // console.log('res>>>>>', res)
           localStorage.setItem('ag-token-7878p', res.taccessToken)
           localStorage.setItem('ag-user-app-web', JSON.stringify(res.user))
           global.phoneNumber.value = phoneNumber
@@ -82,8 +82,8 @@ export default () => {
           }, 1000)
         })
 
-        const user = result.user;
-        console.log('User Verified', user)
+        // const user = result.user;
+        // console.log('User Verified', user)
 
         // alert('User Verified!')
         setIsVerified(true)

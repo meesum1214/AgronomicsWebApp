@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from 'react'
 import Lottie from 'react-lottie';
 import { legacy_createStore } from 'redux';
-import * as animationData from '../components/lottie/animated-logo.json'
+import * as animationData from './lottie/animated-logo.json'
 
 const loadingStore = legacy_createStore((state = { loading: false }, action) => {
   switch (action.type) {
