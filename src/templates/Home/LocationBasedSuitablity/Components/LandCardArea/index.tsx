@@ -1,4 +1,3 @@
-import { ScrollArea } from "@mantine/core"
 import { useLandStore } from "../../../../../states/landState"
 import { useSelectedLand } from "../../../../../states/selectedLand"
 import LandCards from "../LandCards"
