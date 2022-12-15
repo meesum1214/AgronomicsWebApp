@@ -1,6 +1,7 @@
 import { Divider, ScrollArea } from "@mantine/core";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useEffect, useState } from "react";
+import Btn from "../../../../../components/Btn";
 import ClimateMonitoring from "./ClimateMonitoring";
 import DatesBar from "./DatesBar";
 import HealthMonitoring from "./HealthMonitoring";
@@ -17,7 +18,7 @@ export default ({ land }: { land: any }) => {
 
   return (
     <div className="flex h-full w-full">
-
+      {/* <Btn color="bg-secondary" onClick={() => console.log(JSON.parse(land.cropwaters[0].simulation)[0])}>check</Btn> */}
       <div className="w-2/5 border-gray-300 p-4">
         <div className="border-gray-300 h-32 flex justify-between items-center px-2">
           <div>

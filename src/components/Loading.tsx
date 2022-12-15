@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Lottie from 'react-lottie';
 import { legacy_createStore } from 'redux';
 import * as animationData from './lottie/animated-logo.json'
@@ -25,7 +25,7 @@ export default () => {
 
   const [LoadingState , setLoadingState] = useState(loadingStore.getState()?.loading)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     loadingStore.subscribe(() => {
       setLoadingState(loadingStore.getState()?.loading)
     })

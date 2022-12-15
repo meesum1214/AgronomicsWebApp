@@ -97,7 +97,22 @@ export default () => {
 
                             onClick={() => {
                               setSelectedCityAndCrop(prev => ({ ...prev, crop: crop }))
-                              getMandiRates(selectedCityAndCrop.city, crop).then((res) => setRates(prev => res))
+                              getMandiRates(selectedCityAndCrop.city, crop)
+                                .then((res) => {
+                                  // console.log(res)
+                                  let data = res?.map((item: any, i: number) => {
+                                    return {
+                                      name: `${new Date(item.date).getMonth() + 1 + '-' + new Date(item.date).getDate()}`,
+                                      uv: item.max,
+                                      pv: item.min
+                                    }
+                                  })
+                                  return data
+                                })
+                                .then((data) => {
+                                  // console.log(data)
+                                  setRates(data)
+                                })
                             }}
                           >
                             <div className="w-full text-center">{crop}</div>
@@ -119,7 +134,7 @@ export default () => {
                 <div className="w-full h-[450px] flex flex-col justify-between ">
                   <div className="w-full flex justify-center"><strong>City: &nbsp; &nbsp;</strong>{rates[0]?.city}</div>
                   <div className="w-full h-96">
-                    <Chart rates={rates} />
+                    <Chart data={rates} />
                   </div>
                 </div>
                 :

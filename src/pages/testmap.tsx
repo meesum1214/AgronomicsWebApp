@@ -1,19 +1,31 @@
 import { Layer, Map, Source } from "react-map-gl"
 import maplibregl from "maplibre-gl"
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { gridPoints } from "../templates/gridPoints";
+import { criged, nonCriged } from "../../check";
+import Btn from "../components/Btn";
 
 export default () => {
 
   const [completed, setCompleted] = useState<[]>([])
   const [pending, setPending] = useState<[]>([])
 
+  // const Basemap = 'http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}'
   const Basemap = 'https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png'
-  // const Basemap = 'https://api.planet.com/basemaps/v1/mosaics'
+
+
 
 
   return (
     <div className="h-screen flex justify-center items-center">
+      {/* <Btn
+        color="bg-secondary"
+        onClick={() => {
+          criged.map((item) => console.log(item))
+          console.log(criged)
+          console.log(">> ", criged.includes({ id: 3 }))
+        }}
+      >check</Btn> */}
       <div className="w-[1100px] h-[700px] bg-white rounded-md shadow-3xl">
         <Map
           initialViewState={{
@@ -34,15 +46,18 @@ export default () => {
   );
 };
 
+
 const Points = ({ completed, pending }: { completed: [], pending: [] }) => {
 
   const points = useMemo(() => {
     return gridPoints?.features.map((item) => {
+      // console.log(">> ", criged.includes({ id: item.properties.id }))
+      // console.log(">> ", {id: item.properties.id})
       return {
         type: "Feature",
         geometry: item.geometry,
         properties: {
-          Color: completed.includes(item?.properties?.id.toString()) ? 'green' : pending.includes(item?.properties?.id.toString()) ? 'orange' : 'white',
+          Color: criged.includes(item?.properties?.id.toString()) ? 'green' : nonCriged.includes(item?.properties?.id.toString()) ? 'orange' : 'white',
           id: item,
         },
       }
