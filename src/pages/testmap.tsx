@@ -13,19 +13,8 @@ export default () => {
   // const Basemap = 'http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}'
   const Basemap = 'https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png'
 
-
-
-
   return (
     <div className="h-screen flex justify-center items-center">
-      {/* <Btn
-        color="bg-secondary"
-        onClick={() => {
-          criged.map((item) => console.log(item))
-          console.log(criged)
-          console.log(">> ", criged.includes({ id: 3 }))
-        }}
-      >check</Btn> */}
       <div className="w-[1100px] h-[700px] bg-white rounded-md shadow-3xl">
         <Map
           initialViewState={{
@@ -51,8 +40,6 @@ const Points = ({ completed, pending }: { completed: [], pending: [] }) => {
 
   const points = useMemo(() => {
     return gridPoints?.features.map((item) => {
-      // console.log(">> ", criged.includes({ id: item.properties.id }))
-      // console.log(">> ", {id: item.properties.id})
       return {
         type: "Feature",
         geometry: item.geometry,
@@ -80,6 +67,7 @@ const Points = ({ completed, pending }: { completed: [], pending: [] }) => {
           "circle-stroke-color": "#fff",
         }}
       />
+
     </Source>
 
 
