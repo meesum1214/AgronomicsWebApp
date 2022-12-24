@@ -13,6 +13,7 @@ export default () => {
   const [loading, setLoading] = useState(false)
 
   const [data, setData] = useInputState({
+    userid: JSON.parse(localStorage.getItem('ag-user-app-web')).id,
     name: '',
     phone: '',
     email: '',
@@ -32,12 +33,11 @@ export default () => {
   
 
   const onSubmit = () => {
-    // console.log('Image >>>', data.file)
     if (data.name && data.phone && data.email && data.text && data.file) {
       setLoading(true)
-      console.log('Submitted Data: >>', data)
+      // console.log('Submitted Data: >>', data)
       postSupportTicket(data).then((res) => {
-        console.log('Response from Data: >>>', res.data)
+        // console.log('Response from Data: >>>', res.data)
         setData({name: '', phone: '', email: '', text: '', file: '', location: ''})
         alert('Ticket Added Successfully')
         setLoading(false)

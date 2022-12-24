@@ -78,9 +78,9 @@ export const getReport = async () => {
 
 export const postSupportTicket = async (data: object) => {
   let formData = new FormData();
-  formData.append('userId', 17);
+  formData.append('user_id', data.userid);
   formData.append('title', data.name);
-  formData.append('description', data.text);
+  formData.append('message', data.text);
   formData.append('Image', data.file);
   formData.append('phone_number', data.phone);
   formData.append('email', data.email);
@@ -107,4 +107,8 @@ export const postCheckbox = async (record_id, preparation_id) => {
 
 export const deleteLand = async (id, userID) => {
   return API.get(`/landrecord/deleteLand?id=${id}&userID=${userID}`)
+}
+
+export const getLandData = async (latlng) => {
+  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAS8MyZQtm7vnW1zXTHAZtIy61nMDLbHrg&language=eng&latlng=${latlng}`)
 }

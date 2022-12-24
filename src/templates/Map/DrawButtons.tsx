@@ -1,13 +1,25 @@
 import { MdAdd } from 'react-icons/md'
 import Btn from '../../components/Btn'
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { openConfirmModal, openModal } from '@mantine/modals'
 import dynamic from 'next/dynamic';
 import { useDidUpdate } from '@mantine/hooks';
 import AddLandModal from './AddLandModal';
+import { getLandData } from '../../API/add';
 const DrawPoly = dynamic(import('./DrawPoly'), { ssr: false })
 const Setup = () => {
+
+  useEffect(() => {
+    getLandData('33.579274,73.218047').then(res => {
+      console.log(res)
+    })
+      .catch(err => {
+        console.log(err)
+      })
+  }, [])
+
+
   const [Draw, setDraw] = useState(false)
   const [drawn, setDrawn] = useState({})
   const startDrawer = () => {
@@ -50,7 +62,7 @@ const Setup = () => {
             <Btn shadow green onClick={() => {
               startDrawer()
             }}>
-             <b className='flex mx-4 font-bold tracking-wide'> <MdAdd className=' mx-2' size={15}/>Add Land </b>
+              <b className='flex mx-4 font-bold tracking-wide'> <MdAdd className=' mx-2' size={15} />Add Land </b>
             </Btn>
             :
             <Btn shadow red onClick={() => {

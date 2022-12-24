@@ -1,20 +1,20 @@
 import * as React from 'react';
-import {useState, useCallback} from 'react';
+import { useState, useCallback } from 'react';
 import DrawControl from './draw-control';
 import { useDidUpdate } from '@mantine/hooks';
 
 
-export default ({setDrawn}) => {
+export default ({ setDrawn }) => {
   const [features, setFeatures] = useState({});
 
-  useDidUpdate(()=>{
+  useDidUpdate(() => {
     setDrawn(features)
-  },[features])
+  }, [features])
 
   const onUpdate = useCallback(e => {
-    
+
     setFeatures(currFeatures => {
-      const newFeatures = {...currFeatures};
+      const newFeatures = { ...currFeatures };
       for (const f of e.features) {
         newFeatures[f.id] = f;
       }
@@ -24,7 +24,7 @@ export default ({setDrawn}) => {
 
   const onDelete = useCallback(e => {
     setFeatures(currFeatures => {
-      const newFeatures = {...currFeatures};
+      const newFeatures = { ...currFeatures };
       for (const f of e.features) {
         delete newFeatures[f.id];
       }
@@ -32,10 +32,12 @@ export default ({setDrawn}) => {
     });
   }, []);
 
-  return (<DrawControl
-          onCreate={onUpdate}
-          onUpdate={onUpdate}
-          onDelete={onDelete}
-        />);
+  return (
+    <DrawControl
+      onCreate={onUpdate}
+      onUpdate={onUpdate}
+      onDelete={onDelete}
+    />
+  );
 }
 
