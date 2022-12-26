@@ -3,6 +3,7 @@ import { Divider, Input, ScrollArea } from "@mantine/core"
 import { setSelectedLand, unselectLand, useSelectedLand } from "../../states/selectedLand";
 import {  MdSearch,  } from "react-icons/md";
 import { FcFilledFilter , FcSettings } from "react-icons/fc";
+
 export default () => {
   const selected = useSelectedLand()?.selectedLand
   const lands = useLandStore()?.lands

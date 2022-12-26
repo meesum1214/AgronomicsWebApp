@@ -1,44 +1,46 @@
 import maplibreGl from 'maplibre-gl';
-import {Source, Layer, useMap} from 'react-map-gl';
-import {useDidUpdate} from '@mantine/hooks'
+import { Source, Layer, useMap } from 'react-map-gl';
+import { useDidUpdate } from '@mantine/hooks'
 import { useSelectedLand } from '../../../../../../../states/selectedLand';
 export default () => {
-    const selectedLand = useSelectedLand()?.selectedLand?.geometry || '[]';
-    const map = useMap()?.current
+  const selectedLand = useSelectedLand()?.selectedLand?.geometry || '[]';
+  const map = useMap()?.current
 
-    useDidUpdate(() => {
+  useDidUpdate(() => {
 
-        if (selectedLand !== '[]') {
-            const bounds = new maplibreGl.LngLatBounds();
-            JSON.parse(selectedLand).forEach((point) => {
-                bounds.extend(point);
-            });
-            map.fitBounds(bounds, {padding: 20});
-        }
+    if (selectedLand !== '[]') {
+      const bounds = new maplibreGl.LngLatBounds();
+      JSON.parse(selectedLand).forEach((point) => {
+        bounds.extend(point);
+      });
+      map.fitBounds(bounds, { padding: 20 });
+    }
 
-    },[selectedLand])
+  }, [selectedLand])
 
-    return (
-        <Source id="selectedLand" type="geojson" data={{
-            type: "FeatureCollection",
-            features: [{
-                type: "Feature",
-                geometry: {
-                    type: "Polygon",
-                    coordinates: [JSON.parse(selectedLand)]
-                }
-            }]
-        }}>
-            
-            <Layer
-                id="selectedLandOutline"
-                type="line"
-                paint={{
-                    'line-color': 'red',
-                    'line-width': 2
-                }}
-            />
-        </Source>
-    )
+  return (
+    <Source id="selectedLand" type="geojson"
+      data={{
+        type: "FeatureCollection",
+        features: [{
+          type: "Feature",
+          geometry: {
+            type: "Polygon",
+            coordinates: [JSON.parse(selectedLand)]
+          }
+        }]
+      }}
+    >
+
+      <Layer
+        id="selectedLandOutline"
+        type="line"
+        paint={{
+          'line-color': 'red',
+          'line-width': 2
+        }}
+      />
+    </Source>
+  )
 }
 

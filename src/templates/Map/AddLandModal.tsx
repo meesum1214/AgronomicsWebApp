@@ -6,49 +6,78 @@ import area from '@turf/area';
 import { centroid } from '@turf/turf';
 import { useEffect } from 'react';
 import { MdLocationOn } from 'react-icons/md';
+import { getLandData } from '../../API/add';
 import Btn from '../../components/Btn';
 import { addLand } from '../../states/landState';
 import { useUserState } from '../../states/userState';
 import { addLandRecord } from '../../WebServices/UserRecord';
-export default ({ feature, closeDraw }) => {
+export default ({ feature, closeDraw, setDrawn }) => {
   const user = useUserState()?.data
   const acres = (area(feature) / 4046.86).toFixed(2)
 
   const [name, setname] = useInputState('')
   const geometry = JSON.stringify(feature?.geometry?.coordinates[0])
   const location = JSON.stringify(centroid(feature))
-  const [address, setaddress] = useInputState('')
-  
+  const [address, setAddress] = useInputState('')
+  const [province, setPprovince] = useInputState('')
+  const [district, setPdistrict] = useInputState('')
+  const [tehsil, setPtehsil] = useInputState('')
+
+  useEffect(() => {
+    getLandData(`${feature.geometry.coordinates[0][0][1]},${feature.geometry.coordinates[0][0][0]}`).then(res => {
+      console.log(res.data.results)
+      const template = res.data.results[0].address_components
+      const locality = template.find(x => x.types[0] === 'locality').long_name
+      const tehsil = template.find(x => x.types[0] === 'administrative_area_level_3').long_name
+      const district = template.find(x => x.types[0] === 'administrative_area_level_2').long_name
+      const province = template.find(x => x.types[0] === 'administrative_area_level_1').long_name
+      setPtehsil(tehsil)
+      setPdistrict(district)
+      setPprovince(province)
+      setAddress(locality + ', ' + tehsil + ', ' + district + ', ' + province)
+    })
+      .catch(err => {
+        console.log(err)
+      })
+
+    console.log('feature: ', feature.geometry.coordinates[0][0])
+  }, [])
 
   const submit = () => {
+    let loc = JSON.parse(location).geometry.coordinates
 
     console.log('size: ', acres)
-    console.log('user_id: ', user?.id)
-    console.log('Location: ', JSON.parse(location))
-    console.log('Geometry: ', JSON.parse(geometry))
+    console.log('Address: ', address)
+    console.log('provice:', province)
+    console.log('district: ', district)
+    console.log('tehsil: ', tehsil)
+    console.log('Location: ', JSON.stringify(loc))
+    console.log('Geometry: ', geometry)
     console.log('Name: ', name)
+    console.log('user_id: ', user?.id.toString())
 
 
-    // addLandRecord(user?.user?.id.toString(), name, acres, '', '', '', '', location, geometry)
-    //   .then(res => {
-    //     showNotification({
-    //       message: 'Land Record Added Successfully',
-    //       autoClose: 1500,
-    //       color: 'green',
-    //       disallowClose: true,
-    //     });
-    //     closeAllModals()
-    //     closeDraw()
-    //     addLand(res?.data)
-    //   })
-    //   .catch(err => {
-    //     showNotification({
-    //       message: 'Error Adding Land Record',
-    //       autoClose: 1500,
-    //       color: 'red',
-    //       disallowClose: true,
-    //     });
-    //   })
+    addLandRecord(user?.id.toString(), name, `${acres}Acres`, address, province, district, tehsil, JSON.stringify(loc), geometry)
+      .then(res => {
+        showNotification({
+          message: 'Land Record Added Successfully',
+          autoClose: 1500,
+          color: 'green',
+          disallowClose: true,
+        });
+        closeAllModals()
+        closeDraw()
+        addLand(res?.data)
+        setDrawn({})
+      })
+      .catch(err => {
+        showNotification({
+          message: 'Error Adding Land Record',
+          autoClose: 1500,
+          color: 'red',
+          disallowClose: true,
+        });
+      })
   }
   return (
     <div className='flex flex-col w-full'>

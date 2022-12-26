@@ -10,15 +10,6 @@ import { getLandData } from '../../API/add';
 const DrawPoly = dynamic(import('./DrawPoly'), { ssr: false })
 const Setup = () => {
 
-  useEffect(() => {
-    getLandData('33.579274,73.218047').then(res => {
-      console.log(res)
-    })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [])
-
 
   const [Draw, setDraw] = useState(false)
   const [drawn, setDrawn] = useState({})
@@ -39,7 +30,7 @@ const Setup = () => {
   const submitPoly = () => {
     openModal({
       title: <b>Add Your Land</b>,
-      children: (<AddLandModal closeDraw={setDraw} feature={Object.values(drawn)?.[0]} />),
+      children: (<AddLandModal closeDraw={setDraw} feature={Object.values(drawn)?.[0]} setDrawn={setDrawn} />),
       onClose: () => stopDrawer(),
     });
 

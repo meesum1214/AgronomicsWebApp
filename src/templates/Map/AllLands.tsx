@@ -1,5 +1,5 @@
 import { useLandStore } from "../../states/landState"
-import { Source,Layer, useMap } from "react-map-gl"
+import { Source, Layer, useMap } from "react-map-gl"
 import { useMemo } from "react"
 import { useDidUpdate } from "@mantine/hooks"
 import extent from 'turf-extent'
@@ -21,22 +21,22 @@ export default () => {
         },
       }
     })
-  },[lands])
+  }, [lands])
 
 
 
-    useDidUpdate(() => {
+  useDidUpdate(() => {
 
-        if (lands[0]) {
-            const bounds = extent({ type: "FeatureCollection", features: landsCollection })
-            map.fitBounds(bounds, {padding: 20});
-        }
+    if (lands[0]) {
+      const bounds = extent({ type: "FeatureCollection", features: landsCollection })
+      map.fitBounds(bounds, { padding: 20 });
+    }
 
-    },[landsCollection])
+  }, [landsCollection])
 
-  return(
+  return (
     <Source type="geojson" data={{ type: "FeatureCollection", features: landsCollection }}>
-       <Layer
+      <Layer
         id="land"
         type="fill"
         interactive
@@ -55,6 +55,8 @@ export default () => {
         }}
       />
     </Source>
+
+    // <div>All My Lands</div>
 
   )
 }
