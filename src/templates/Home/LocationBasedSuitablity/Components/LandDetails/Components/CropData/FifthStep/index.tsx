@@ -18,7 +18,14 @@ export default ({ managementPractices, location, cropsData, selectedSeedVariety,
 
   const suitableCrops = JSON.parse(selectedLand?.selectedLand?.suitablecrops).filter((e: any) => e.crop === cropsData.crop)
 
-  const userId = JSON.parse(window.localStorage.getItem("ag-user-app-web"))
+  const [userId, setUserId] = useState(null)
+  useEffect(() => {
+    let userId = JSON.parse(localStorage.getItem("ag-user-app-web"))
+    setUserId(userId)
+  }, [])
+
+
+  // const userId = JSON.parse(window.localStorage.getItem("ag-user-app-web"))
 
   const router = useRouter()
 

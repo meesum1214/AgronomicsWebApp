@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { useState } from 'react';
 import Drawer1 from '../Drawer1';
 

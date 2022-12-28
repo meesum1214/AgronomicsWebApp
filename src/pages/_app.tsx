@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Suspense fallback={<Loading />} >
       <Loading />
       {
-        token ?
+        // token ?
           <div>
             <Head>
               <title>agronomics | web-app</title>
@@ -65,8 +65,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             </div>
 
           </div>
-          :
-          <AuthPage />
+          // :
+          // <AuthPage />
       }
     </Suspense>
   )

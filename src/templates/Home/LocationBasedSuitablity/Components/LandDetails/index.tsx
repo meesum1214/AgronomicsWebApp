@@ -4,17 +4,23 @@ import { useSelectedLand } from '../../../../../states/selectedLand';
 // import WeatherDetails from '../WeatherDetails';
 import SelectedLand from './Components/SelectedLand';
 import Btn from '../../../../../components/Btn';
-import WeatherDetails from '../WeatherDetails';
+// import WeatherDetails from '../WeatherDetails';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { deleteLand } from '../../../../../API/add';
-import Chart from '../../../../../components/Chart';
+// import Chart from '../../../../../components/Chart';
 const Map = dynamic(() => import('./Components/Map'), {});
 // const Chart = dynamic(import('../../../../../components/Chart'), { ssr: false });
 
 export default () => {
+  const [userId, setUserId] = useState(null)
 
-  const userId = JSON.parse(window.localStorage.getItem("ag-user-app-web"))
+  
+  useEffect(() => {
+    let userId = JSON.parse(localStorage.getItem("ag-user-app-web"))
+    setUserId(userId)
+  }, [])
+  
 
   const land = useSelectedLand()
   const router = useRouter()

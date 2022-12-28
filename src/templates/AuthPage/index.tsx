@@ -12,7 +12,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { FaLinkedin, FaTwitterSquare, FaWhatsappSquare } from "react-icons/fa";
 import { ImFacebook2 } from "react-icons/im";
 import { LoadingAG } from "../../components/Loading";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 
 export default () => {

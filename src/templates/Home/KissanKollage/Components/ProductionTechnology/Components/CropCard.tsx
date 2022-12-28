@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { MouseEventHandler } from "react"
 
 export default ({ name, selected, setSelected, onClick }: { name: string, selected: boolean, setSelected: Function, onClick: MouseEventHandler }) => {

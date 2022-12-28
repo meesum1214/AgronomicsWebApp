@@ -21,7 +21,7 @@ export default () => {
       // console.log('Land Preparation List: ', landPreparation)
     }).catch((err) => {
       console.log('Error: ', err)
-      alert('Error: ', err)
+      // alert('Error: ', err)
     })
   }, [selectedLand])
 

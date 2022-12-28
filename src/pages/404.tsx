@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 export default () => (
   <div className='flex justify-center items-center min-h-screen'>

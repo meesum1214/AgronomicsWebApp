@@ -1,5 +1,5 @@
 import { Input, ScrollArea } from "@mantine/core"
-import Image from "next/image"
+// import Image from "next/legacy/image"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { BsArrowRight } from "react-icons/bs"
