@@ -13,7 +13,7 @@ export default () => {
   const [loading, setLoading] = useState(false)
 
   const [data, setData] = useInputState({
-    userid: JSON.parse(localStorage.getItem('ag-user-app-web')).id,
+    userid: null,
     name: '',
     phone: '',
     email: '',
@@ -27,7 +27,8 @@ export default () => {
       ...data,
       location: `${window.navigator.geolocation.getCurrentPosition((e) => {
         return `${e.coords.latitude},${e.coords.longitude}`
-      })}`
+      })}`,
+      userid: JSON.parse(localStorage.getItem('ag-user-app-web')).id
     })
   }, [])
   
